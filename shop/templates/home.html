@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% for organiser in all_events_list %}
+        <div class = "organiser-entry">
+            <h3><a href = "">{{ organiser.title }}</a></h1>
+            <p>{{ organiser.description }}</p>
+        </div>
+{% endfor %}
+
+
+{% endblock content %}

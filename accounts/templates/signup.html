@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}Sign Up{% endblock title %}
+
+{% block content %}
+{% if not form.is_valid %}
+<div style="margin-top: 1em;">
+	<div class="container p-3 mb-2" style="background-color: #2f3b52; color: #ace7ef;">
+		<form method="POST">
+			{% csrf_token %}
+			<fieldset class="form-group">
+				<legend class="border-bottom mb-4">Join Us</legend>
+				{{ form|crispy }}
+			</fieldset>
+			<div class="form-group">
+				<button class="btn btn-outline-info" type="submit">Sign Up</button>
+			</div>
+		</form>
+		<div class="border-top pt-3">
+			<small class="text-muted">
+				Already have an account? <a class="ml-2" href="{% url 'signin' %}">Sign In</a>
+			</small>
+		</div>
+	</div>
+</div>
+
+{% else %}
+<div style="margin-top: 1em;">
+	<div class="container p-3 mb-2" style="background-color: #2f3b52; color: #ace7ef;">
+		<h1 class="my_title text-center">Your account has been successfully created</h1>
+		<br>
+		<div>
+			<p>
+				Dear Customer,
+				<br>
+				<br>
+				Your account has been created and it is ready to use.
+				<br>
+				<a href="{% url 'shop:allEveCat' %}">Continue shopping</a>
+			</p>
+		</div>
+	</div>
+</div>
+{% endif %}
+{% endblock content %}
+
+
+

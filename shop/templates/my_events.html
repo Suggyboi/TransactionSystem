@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+my events
+{% endblock %}
+{% block content %}
+    <div class="row mx-auto pt-5">
+    {% for event in events %}
+        {% if event.organiser == request.user %}
+            <div class="col-lg-4 col-sm-12 mb-4">
+                <div class="card p-3" style="height: 60vh; overflow: hidden; background-color: rgba(47, 59, 81, 0.9); color: #ace7ef;">
+                    <a href="{{event.get_absolute_url}}"><img class="card-img-top" src="{{event.image.url}}" alt="{{event.title}}" width="550" height="250"></a>
+                    <div class="card-body">
+                        <h4 class="card-title">{{event.title}}</h4>
+                        <p class="card-text" style="line-height: 1.5em; height: 3em; overflow: hidden;">{{event.description}}</p>
+                        <a class = "btn btn-outline-info btn-lg mr-3 ml-2" href="{{event.get_absolute_url}}">See more</a> <a class = "btn btn-outline-info btn-lg" href="{{event.id}}/delete/">Delete</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+{% endblock %}

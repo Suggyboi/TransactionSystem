@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block metadescription %}
+	{{ event.description|truncatewords:155 }}
+{% endblock %}
+{% block title %}
+	{{ event.title }} - MastrPlanr
+{% endblock %}
+{% block content %}
+	<div class = "row my_prod_row_class">
+		<div class="container">
+			<br>
+			<div class="row">
+				<div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+					<div style="min-width: 18rem;">
+						<img src="{{event.image.url}}" alt="{{event.title}}" width="950" height="500">
+					</div>
+				</div>
+				<div class = "col-12 col-sm-12 col-md-12 col-lg-6" style="padding-right: 3em;"></div>
+					<div>
+						<h1 class="my_prod_title">{{event.title}}</h1>
+						<p>€{{event.price}}</p>
+						<p class = "my_title">Event Description:</p>
+						<p class = "text-justify my_prod_text">{{event.description}}</p>
+						{% if event.stock == 0%}
+							<p class ="text-justify my_prod_text"><b>Out of Stock</b></p>
+						{% else %}
+							<a class = "btn btn-outline-info" href="{% url 'cart:add_cart' event.id %}">Add to Cart</a>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

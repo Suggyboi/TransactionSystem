@@ -1,0 +1,85 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg my-nav" style="	background-color: #2f3b52;">
+  <a class="navbar-brand" href="{% url 'shop:allEveCat' %}">
+    <img src="{% static 'images/logo.png' %}" class="d-inline-block align-top" style="width:10em" alt="">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <img src="{% static 'icons/toggle.svg' %}">
+  </button>
+
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Tickets
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background: rgba(47, 59, 82, 0.9);">
+          <a class="dropdown-item" href="{% url 'shop:allEveCat' %}">All Events</a>
+          {% for cat in categories %}
+          <a class="dropdown-item" href="{{cat.get_absolute_url}}">{{cat.name}}</a>
+          {% endfor %}
+        </div>
+      </li>
+
+      {% if user.is_organiser %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Organiser
+        </a>
+     
+        <div class="dropdown-menu" style="background: rgba(47, 59, 82, 0.9);">
+          <a class="dropdown-item" href="/myevents">My Events</a>
+          <a class="dropdown-item" href="/organiser.html">Create Event</a>
+        </div>
+      </li>
+      {% endif %}
+
+      
+
+
+      {% if user.is_authenticated %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{user.username}}
+          
+        </a>
+        
+
+        <div class="dropdown-menu" style="background: rgba(47, 59, 82, 0.9);">
+          <a class="dropdown-item" href="{% url 'password_change' %}">Change password</a>
+          <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+          <a href="{% url 'order:order_history' %}" class="dropdown-item">Order History</a>
+        </div>
+
+      
+        
+      
+      {% else %}
+          <a class = "nav-item nav-link text-nowrap" href="{% url 'login' %}" aria-expanded="false">Log In <i class="fas fa-sign-in-alt"></i></a>
+          <a class = "nav-item nav-link text-nowrap" href="{% url 'signup' %}" aria-expanded="false">Register <i class="fas fa-user-plus"></i></a>
+      {% endif %}
+
+
+
+      {% if item_count > 0 %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'cart:cart_detail' %}"><i class="fas fa-shopping-cart"></i>({{item_count}})</a>
+      </li>
+      {% endif %}
+       
+      </li>
+    </ul>
+    
+    <!--Search-->
+    <form class="form-inline my-2 my-lg-0" action="{% url 'search_app:searchResult' %}" method="get">
+      {% csrf_token %}
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q" aria-describedby="basic-addon2" style="background: rgba(47, 59, 82, 0.3); border-color: #ace7ef;">
+      <div class="input-group-append">
+        <button class="btn btn-outline-info my-2 my-sm-0 my-button" type="submit">Search</button>
+      </div>
+    </form>
+  </div>
+</nav>
